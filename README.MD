@@ -1,81 +1,126 @@
-<div align="center">
+# API de Equipes e Pilotos de F1
 
-  <img src="./.github/assets/blue-saiyan-bg.png" alt="Logo" height="200">
-  <h1 align="center"><strong>NODE BOILERPLATE - BLUE EDITION</strong></h1>
-  <p align="center">
-	  Don't start a new Node project from zero!<br> Use this simple <b>Nodejs</b> boilerplate with pre-configured <b>Typescript</b> in a modern way.
-  </p>
+Este projeto é uma API simples desenvolvida com **Fastify** em **TypeScript**, que fornece informações sobre equipes e pilotos de Fórmula 1. Ideal para fins didáticos, testes ou como base para projetos maiores.
 
-</div>
+---
 
-<br />
+## 🚀 Funcionalidades
 
-  <!-- Badges -->
-<div align="center">
-  
-  [![TypeScript version][ts-badge]][typescript-5-4]
-  [![Node.js version][nodejs-badge]][nodejs]
+* Listagem de equipes de Fórmula 1
+* Listagem de pilotos
+* Busca de piloto por ID
+* Suporte a CORS com origem aberta (`*`)
+* Logger nativo do Fastify
 
-</div>
+---
 
-# 🚀 Technologies
+## 📦 Tecnologias utilizadas
 
-This code source was developed with the following items:
+* [Fastify](https://www.fastify.io/)
+* [TypeScript](https://www.typescriptlang.org/)
+* [TSX](https://github.com/esbuild-kit/tsx)
+* [Tsup](https://tsup.egoist.dev/)
+* [@fastify/cors](https://github.com/fastify/fastify-cors)
 
-### 📦 Dependencies
 
-- [typescript][typescript-npm] - Superset for application scale JavaScript development
-- [tsx][tsx-npm] - TypeScript Execute (tsx): Enable Node.js to run TypeScript
-- [tsup][tsup-npm] - Bundle your TypeScript library with no config, powered by esbuild
-- [@types/node][@types/node-npm] - type definitions for node
+## 📌 Requisitos
 
-### 📄 Files
+* Node.js 18+
+* npm (ou yarn)
 
-- `.gitignore` - Ignore folders like node_modules
-- `.env` - Enviroment variables
-- `tsconfig.json` - Typescript configure Options
+---
 
-### ⚡ Scripts
+## ⚙️ Scripts disponíveis
 
-- `npm run dist`: Compiles TypeScript files to JavaScript in the dist directory.
-- `npm run start:dev`: Runs the server in development mode with environment variables loaded from the .env file.
-- `npm run start:watch`: Runs the server in development mode with support for automatic reload on file changes.
-- `npm run start:dist`: Compiles the project and runs the compiled version from the dist directory.
+| Comando               | Descrição                                   |
+| --------------------- | ------------------------------------------- |
+| `npm run start:dev`   | Inicia o servidor em modo desenvolvimento   |
+| `npm run start:watch` | Inicia o servidor com hot-reload            |
+| `npm run dist`        | Compila o código TypeScript para JavaScript |
+| `npm run start:dist`  | Compila e executa o código compilado        |
 
-# 👨‍💻 How To Use
+---
 
-click in **[Use this template]** OR
+## 🔌 Endpoints
 
-To clone and run this application, you'll need [Git](https://git-scm.com), [Node.js v20+](https://nodejs.org/en/) + [NPM v10+](https://nodejs.org/en/) installed on your computer. From your command line:
+### `GET /teams`
 
-```bash
-# Clone this repository
-$ git clone https://github.com/felipeAguiarCode/node-blue-boilerplate
+Retorna a lista de equipes.
 
-# Go into the repository
-$ cd node-blue-boilerplate
+#### Exemplo de resposta:
 
-# Install dependencies
-$ npm install
+```json
+{
+  "teams": [
+    { "id": 1, "name": "Mc Laren", "base": "Reino unido" },
+    { "id": 2, "name": "Mercedez", "base": "Reino Unido" },
+    { "id": 3, "name": "Red Bull Racing", "base": "Reino Unido" }
+  ]
+}
 ```
 
-## Author
+---
 
-| [<img src="https://avatars3.githubusercontent.com/u/37452836?s=96&v=4"><br><sub>Felipe Aguiar</sub>](https://github.com/felipeAguiarCode) |
-| :---------------------------------------------------------------------------------------------------------------------------------------: |
-|                                            [Linkedin](www.linkedin.com/in/felipe-aguiar-exe/)                                             |
+### `GET /drivers`
 
-# Credits
+Retorna a lista de pilotos.
 
-icons by [Pino Lamanna][dribble-icon]
+#### Exemplo de resposta:
 
-[typescript]: https://www.typescriptlang.org/
-[typescript-5-4]: https://www.typescriptlang.org/
-[ts-badge]: https://img.shields.io/badge/TypeScript-5.4-blue.svg
-[nodejs-badge]: https://img.shields.io/badge/Node.js->=%2020.00-blue.svg
-[nodejs]: https://nodejs.org/
-[dribble-icon]: https://dribbble.com/Schakalwal
-[typescript-npm]: https://www.npmjs.com/package/typescript
-[tsx-npm]: https://www.npmjs.com/package/tsx
-[tsup-npm]: https://www.npmjs.com/package/tsup
-[@types/node-npm]: https://www.npmjs.com/package/@types/node
+```json
+{
+  "drivers": [
+    { "id": 1, "name": "Max Verstappen", "team": "Red Bull Racing" },
+    { "id": 2, "name": "Luis Hamilton", "team": "Mercedez" },
+    { "id": 3, "name": "Lando Norris", "team": "Mc Laren" }
+  ]
+}
+```
+
+---
+
+### `GET /drivers/:id`
+
+Retorna os dados de um piloto específico com base no ID.
+
+#### Exemplo de sucesso:
+
+`GET /drivers/1`
+
+```json
+{
+  "driver": {
+    "id": 1,
+    "name": "Max Verstappen",
+    "team": "Red Bull Racing"
+  }
+}
+```
+
+#### Exemplo de erro (ID inexistente):
+
+```json
+{
+  "message": "Driver not found"
+}
+```
+
+---
+
+## 🏁 Como rodar o projeto
+
+1. Instale as dependências:
+
+```bash
+npm install
+```
+
+2. Execute o servidor em modo desenvolvimento:
+
+```bash
+npm run start:dev
+```
+
+3. Acesse os endpoints via `http://localhost:3333`.
+
+---
